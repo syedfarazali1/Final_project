@@ -26,14 +26,19 @@ $link = new mysqli($servername, $username, $password, $dbname);
         $Days = $_POST['Days'];
         $Cit_ID = $_POST['Cit_ID'];
         $Avaible_Status = $_POST['Avaible_Status'];
-        $Pic = $_POST['Pic'];
+        $filename = $_FILES['Pic']["name"];
+        $tempname = $_FILES['Pic']["tmp_name"];
+        $picsize = $_FILES['Pic']["size"];
+        $pictype = $_FILES['Pic']["type"];
+        move_uploaded_file($tempname,"images/".$filename);
+        
            
            
          
     
         $link = new mysqli($servername, $username, $password, $dbname);
     
-  $sql = "UPDATE `doctor` SET `Dr_Name`='$Dr_Name',`Spe_ID`='$Spe_ID',`Timing`='$Timing',`Days`='$Days',`Cit_ID`='$Cit_ID',`Avaible_Status`='$Avaible_Status',`Pic`='$Pic' WHERE id= $ID";
+  $sql = "UPDATE `doctor` SET `Dr_Name`='$Dr_Name',`Spe_ID`='$Spe_ID',`Timing`='$Timing',`Days`='$Days',`Cit_ID`='$Cit_ID',`Avaible_Status`='$Avaible_Status',`Pic`='$filename' WHERE id= $ID";
        
      $result = mysqli_query($link, $sql);
 
@@ -44,7 +49,7 @@ $link = new mysqli($servername, $username, $password, $dbname);
      }
 
         ?>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <input type="hidden" class="form-control" aria-describedby="emailHelp" value="<?php echo $data[0]?>"
                     name="ID">
@@ -53,9 +58,7 @@ $link = new mysqli($servername, $username, $password, $dbname);
                     name="Dr_Name">
                 <label for="NAME" class="form-label">Specialist</label>
                 <select class="form-select" name="Spe_ID">
-                   <option selected value="<?php echo $data[2]?>"><?php if ($data[2] == 1) {
-                    echo "skin";
-                   }?></option>
+                   <option selected value="<?php echo $data[2]?>"></option>
                    <?php
                 $sql = "select * from `specialist`";
                 $result = mysqli_query($link, $sql);
@@ -118,8 +121,10 @@ $link = new mysqli($servername, $username, $password, $dbname);
                 </div>
            
                 <label for="NAME" class="form-label">Images</label>
-                <input type="text" name="Pic" value="<?php echo $data[7]?>" class="form-control"
-                    aria-describedby="emailHelp" >
+               <br>
+                    <img height="30px" width="30px" src="images/<?php echo $data[7]?>" alt="<?php echo $data[7]?>"> <br>
+                    <input name="Pic"  type="file">
+                <br>
                 <br>
                 <button type="submit" name="update" class="btn btn-primary">Submit</button>
             </div>

@@ -51,7 +51,8 @@ $num = mysqli_num_rows($result);?>
                 <?php echo $res['Avaible_Status'];?>
             </td>   
                  <td>
-                <?php echo $res['Pic'];?>
+                    <img height="30px" width="30px" src="images/<?php echo $res['Pic'];?>" alt="<?php echo $res['Pic'];?>">
+                
             </td>
           
             <td>

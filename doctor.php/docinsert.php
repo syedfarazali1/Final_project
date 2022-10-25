@@ -13,15 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $Days = $_POST['Days'];
             $Cit_ID = $_POST['Cit_ID'];
             $Avaible_Status = $_POST['Avaible_Status'];
-            $Pic = $_POST['Pic'];
-         
-           
+            $filename = $_FILES['Pic']["name"];
+            $tempname = $_FILES['Pic']["tmp_name"];
+            $picsize = $_FILES['Pic']["size"];
+            $pictype = $_FILES['Pic']["type"];
+            move_uploaded_file($tempname,"images/".$filename);
+            
          
     
     $link = new mysqli($servername, $username, $password, $dbname);
     
- $sql = "INSERT INTO `doctor`( `Dr_Name`, `Spe_ID`, `Timing`, `Days`, `Cit_ID`, `Avaible_Status`,  `Pic`) VALUES ('$Dr_Name','$Spe_ID','$Timing','$Days',$Cit_ID,'$Avaible_Status','$Pic')";
-     $result = mysqli_query($link, $sql);
+ $sql = "INSERT INTO `doctor`( `Dr_Name`, `Spe_ID`, `Timing`, `Days`, `Cit_ID`, `Avaible_Status`,  `Pic`) VALUES ('$Dr_Name','$Spe_ID','$Timing','$Days',$Cit_ID,'$Avaible_Status','$filename')";
+
+ $result = mysqli_query($link, $sql);
             
   
     }
@@ -37,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include "../nav.php"; ?>
     <div class="container">
 
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
 
                 <label for="NAME" class="form-label">Dr_NAME</label>
@@ -103,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <label for="">Image</label> <br>
-                <input name="Pic" type="text"> <br> <br>
+                <input name="Pic" type="file"> <br> <br>
                 <button type="submit" name="save" class="btn btn-primary">Submit</button>
             </div>
         </form> <br>
