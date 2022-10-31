@@ -1,5 +1,7 @@
 
-
+<?php
+include "../headers.php";
+?>
 <?php
 include "../connection.php";
 
@@ -7,6 +9,9 @@ $sql = "select * from `patient`";
 $result = mysqli_query($link, $sql);
 $num = mysqli_num_rows($result);?>
 <body>
+    <div class="container">
+    <a class="btn-primary btn-sm text-bold fs-4" href="patinsert.php">Add Patient</a> <br><br>
+
 <table class="table table-dark table-striped">
     <thead>
         <tr>
@@ -62,7 +67,7 @@ $num = mysqli_num_rows($result);?>
             echo $res['ID'];?>"> Delete</a> </button>
            </td>
             <td>
-                <button class="btn-primary"> <a class="text-white" href="patupd.php?ID=<?php
+                <button class="btn-primary btn-sm"> <a class="text-white" href="patupd.php?ID=<?php
             echo $res['ID'];?>"> Update</a> </button>
             </td>
         </tr>
@@ -76,5 +81,9 @@ $num = mysqli_num_rows($result);?>
     </tbody>
 </table>
 
+</div>
+<?php
+include "../footer.php";
+?>
 
 </body>

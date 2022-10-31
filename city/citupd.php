@@ -1,13 +1,9 @@
 <?php
-include "../header.php";
+include "../headers.php";
 ?>
 
-<body>
-    <?php include "../nav.php"; ?>
-    <div class="container">
 
-
-        <?php
+<?php
 include "../connection.php";
 $link = new mysqli($servername, $username, $password, $dbname);
         $ID = $_GET['ID'];       
@@ -29,8 +25,10 @@ $link = new mysqli($servername, $username, $password, $dbname);
     
          $sql = "UPDATE `cities` SET `Name`='$NAME' WHERE id = $id";
          $result = mysqli_query($link, $sql);
-            
-         header("Refresh:0; url=Index.php");  
+
+         echo "<script >
+         window.location = 'Index.php';
+         </script>";
       }
     
     
@@ -52,16 +50,59 @@ $link = new mysqli($servername, $username, $password, $dbname);
             </div>
         </form> <br>
 
-            <?php
-                include "cityselect.php";
-             ?>
+           
+<?php
+include "../connection.php";
+$sql = "select * from `cities`";
+$result = mysqli_query($link, $sql);
+$num = mysqli_num_rows($result);?>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
 
-        </tbody>
-        </table>
+            <th >#</th>
+            <th >First</th>
+            <th colspan="2">Action</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <?php
+    while ($res = mysqli_fetch_array($result)) {
+    ?>
+        <tr>
+            <th >
+                <?php echo $res['ID'];?>
+            </th>
+            <td>
+                <?php echo $res['Name'];?>
+            </td>
+            <td>
+            <a class="text-white" href="citdel.php?ID=<?php
+            echo $res['ID'];?>">  <button class="btn-primary btn-sm" name= "delete">  Delete </button></a>
+           </td>
+            <td>
+            <a class="text-white" href="citupd.php?ID=<?php
+            echo $res['ID'];?>">    <button class="btn-primary btn-sm">  Update </button></a>
+            </td>
+        </tr>
+
+        <?php
+    }
+
+
+?>
+
+    </tbody>
+</table>
+
+       
     </div>
     <?php
 include "../footer.php";
 ?>
 
-</body>
+
 

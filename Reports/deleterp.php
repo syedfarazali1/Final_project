@@ -9,8 +9,10 @@ $link = new mysqli($servername, $username, $password, $dbname);
     
 mysqli_query($link, $sql);
 
-header("Refresh:0; url=insertrp.php");  
-
+ 
+echo "<script >
+window.location = 'selectrp.php';
+</script>";
 
 
 

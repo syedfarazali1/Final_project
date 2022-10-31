@@ -1,0 +1,156 @@
+<?php
+  include "../connection.php";
+         $conn = new mysqli($servername, $username, $password, $dbname);
+          
+
+            $Id = $_GET['ID'];       
+            $sql = "SELECT * FROM `appointments` WHERE ID =$Id";
+            $run =  mysqli_query($conn,$sql);
+            $data = mysqli_fetch_array( $run);{
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+            if(isset($_POST['update']))
+            // print_r($result);
+            {
+              // $Id=$_GET["id"];
+              $Date_Time=$_POST["Date_Time"];
+              $Pat_ID=$_POST["Pat_ID"];
+              $Doctor_ID=$_POST["Doctor_ID"];
+              $Ph_Num=$_POST["Ph_Num"];
+              $Address=$_POST["Address"];
+              $Consultancy_Fees =$_POST["Consultancy_Fees"];
+           
+
+              $conn = mysqli_connect( $servername, $username , $password , $database );
+
+            //  print_r($result);
+  $sql = "UPDATE `appointments` SET `Date_Time`='$Date_Time',`Pat_ID`='$Pat_ID',`Doctor_ID`='$Doctor_ID',`Ph_Num`='$Ph_Num',`Address`='$Address',`Consultancy_Fees`='$Consultancy_Fees'  WHERE id= $Id";
+          // print_r($sql);exit;
+
+                // $query = mysqli_query($conn ,$sql);
+                $result = mysqli_query($conn ,$sql);
+               
+                 header('loction:select-feedback.php');
+            }
+           
+          }
+?>
+
+
+<div class=" container mt-5">
+    <h2>UpDate Data </h2>
+    <form action="" method="POST">
+        <div class="col-md-3">
+            <label for="validationCustom01" class="form-label">Date_Time</label>
+            <input type="text" name="FirstName" value="<?php echo $data[1]?>" class="form-control"
+                id="validationCustom01" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom02" class="form-label">Pat_ID</label>
+            <input type="text" name="LastName" value="<?php echo $data[2]?>" class="form-control"
+                id="validationCustom02" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">Doctor_ID</label>
+            <select class="form-select" name="Specialization" value="<?php echo $data[5]?>" id="validationCustom04"
+                required>
+                <?php
+              $sql = "select * from `doctor`";
+              $result = mysqli_query($conn, $sql);
+              $num = mysqli_num_rows($result)
+
+              ?>
+                <?php
+    while ($res = mysqli_fetch_array($result)) {  
+         ?>
+                <option value="<?php
+                     echo $res['ID'];?>">
+                    <?php
+           echo $res['Dr_Name'];              ?>
+                </option>
+                <?php
+    }               
+               ?>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="validationCustomUsername" class="form-label">Contact No</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend"></span>
+                <input type="text" name="Age" value="<?php echo $data[4]?>" class="form-control"
+                    id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
+        </div>
+
+        <div class="invalid-feedback">
+            Please select a valid state.
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">Specialization</label>
+            <select class="form-select" name="Specialization" value="<?php echo $data[5]?>" id="validationCustom04"
+                required>
+                <?php
+              $sql = "select * from `specialist`";
+              $result = mysqli_query($conn, $sql);
+              $num = mysqli_num_rows($result)
+
+              ?>
+                <?php
+    while ($res = mysqli_fetch_array($result)) {  
+         ?>
+                <option value="<?php
+                     echo $res['ID'];?>">
+                    <?php
+           echo $res['Name'];              ?>
+                </option>
+                <?php
+    }               
+               ?>
+            </select>
+
+        </div>
+
+
+        <div class="invalid-feedback">
+            Please select a valid state.
+        </div>
+</div>
+<div class="col-md-3">
+    <label for="validationCustom03" class="form-label">Address</label>
+    <input type="text" value="<?php echo $data[5]?>" name="Appointment_Date_Time" class="form-control"
+        id="validationCustom03" required>
+
+</div>
+<div class="col-md-3">
+    <label for="validationCustom03" class="form-label">Consultancy_Fees</label>
+    <input type="text" value="<?php echo $data[6]?>" name="Appointment_Date_Time" class="form-control"
+        id="validationCustom03" required>
+    <div class="invalid-feedback">
+    </div>
+</div>
+
+<div class="col-12">
+    <br><br>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary" name="Updated">Submit</button>
+
+    </div>
+    </form>
+</div>
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -10,7 +10,9 @@ $link = new mysqli($servername, $username, $password, $dbname);
     
 mysqli_query($link, $sql);
 
-header("Refresh:0; url=Index.php");  
+echo "<script >
+window.location = 'Index.php';
+</script>";
 
 
 

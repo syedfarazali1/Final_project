@@ -14,8 +14,10 @@ $link = new mysqli($servername, $username, $password, $dbname);
 $sql = "INSERT INTO `cities`(`Name`) VALUES ('$NAME')";
  $result = mysqli_query($link, $sql);
         
- header("Refresh:0; url=Index.php");  
-}
+ echo "<script >
+         window.location = 'Index.php';
+         </script>";
+        }
 
 
 }

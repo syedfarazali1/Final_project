@@ -1,10 +1,13 @@
-
+<?php
+include "../headers.php";
+?>
 
 <?php
 include "../connection.php";
 $sql = "select * from `cities`";
 $result = mysqli_query($link, $sql);
 $num = mysqli_num_rows($result);?>
+<a class="btn-primary btn-sm text-bold fs-4" href="Index.php">Add City</a> <br><br>
 <table class="table table-dark table-striped">
     <thead>
         <tr>
@@ -29,12 +32,12 @@ $num = mysqli_num_rows($result);?>
                 <?php echo $res['Name'];?>
             </td>
             <td>
-                <button class="btn-primary btn-sm" name= "delete"> <a class="text-white" href="citdel.php?ID=<?php
-            echo $res['ID'];?>"> Delete</a> </button>
+            <a class="text-white" href="citdel.php?ID=<?php
+            echo $res['ID'];?>">  <button class="btn-primary btn-sm" name= "delete">  Delete </button></a>
            </td>
             <td>
-                <button class="btn-primary"> <a class="text-white" href="citupd.php?ID=<?php
-            echo $res['ID'];?>"> Update</a> </button>
+            <a class="text-white" href="citupd.php?ID=<?php
+            echo $res['ID'];?>">    <button class="btn-primary btn-sm">  Update </button></a>
             </td>
         </tr>
 
@@ -46,3 +49,6 @@ $num = mysqli_num_rows($result);?>
 
     </tbody>
 </table>
+<?php
+include "../footer.php";
+?>

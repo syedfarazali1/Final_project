@@ -10,7 +10,9 @@ $link = new mysqli($servername, $username, $password, $dbname);
     
 mysqli_query($link, $sql);
 
-header("Refresh:0; url=patinsert.php");  
+echo "<script >
+     window.location = 'patselect.php';
+     </script>";    
 
 
 

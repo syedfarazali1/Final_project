@@ -1,4 +1,7 @@
 
+<?php
+include "../headers.php";
+?>
 
 <?php
 include "../connection.php";
@@ -7,6 +10,8 @@ $sql = "select * from `reports`";
 $result = mysqli_query($link, $sql);
 $num = mysqli_num_rows($result);?>
 <body>
+    
+<a class="btn-primary btn-sm text-bold fs-4" href="insertrp.php">Add Reports</a> <br><br>
 <table class="table table-dark table-striped">
     <thead>
         <tr>
@@ -38,7 +43,7 @@ $num = mysqli_num_rows($result);?>
             </td>         <td>
                 <?php echo $res['DATE_TIME'];?>
             </td>         <td>
-             <a href="docfile/<?php echo $res['DOCUMENTS'];?>"><?php echo $res['DOCUMENTS'];?></a>   
+             <a class="text-white" href="docfile/<?php echo $res['DOCUMENTS'];?>"><?php echo $res['DOCUMENTS'];?></a>   
             </td>        
           
             <td>
@@ -46,7 +51,7 @@ $num = mysqli_num_rows($result);?>
             echo $res['ID'];?>"> Delete</a> </button>
            </td>
             <td>
-                <button class="btn-primary"> <a class="text-white" href="docupd.php?ID=<?php
+                <button class="btn-primary  btn-sm"> <a class="text-white" href="updreport.php?ID=<?php
             echo $res['ID'];?>"> Update</a> </button>
             </td>
         </tr>
@@ -60,5 +65,7 @@ $num = mysqli_num_rows($result);?>
     </tbody>
 </table>
 
-
+<?php
+include "../footer.php";
+?>
 </body>
