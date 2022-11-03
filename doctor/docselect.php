@@ -39,18 +39,37 @@ $num = mysqli_num_rows($result);?>
             <th >
                 <?php echo $res['ID'];?>
             </th>
+           
+          
+
             <td> Dr
                 <?php echo $res['Dr_Name'];?>
             </td>
+          
+            <td>
+                <?php
+                $id = $res['Spe_ID'];
+                $sqls = "SELECT * FROM `specialist` WHERE ID = $id";
+                $results = mysqli_query($link, $sqls);
+                $nums = mysqli_num_rows($results);
+                    while ($ss = mysqli_fetch_array($results)) {
+                    echo $ss['Name'];
+                }?>
+            </td>       
               <td>
-                <?php echo $res['Spe_ID'];?>
-            </td>         <td>
                 <?php echo $res['Timing'];?>
             </td>         <td>
                 <?php echo $res['Days'];?>
             </td>         <td>
                 <?php 
-              echo $res['Cit_ID'];
+              $id = $res['Cit_ID'];
+                $sqlss = "SELECT * FROM `cities` WHERE ID = $id";
+                $resultss = mysqli_query($link, $sqlss);
+                $nums = mysqli_num_rows($resultss);
+                    while ($sss = mysqli_fetch_array($resultss)) {
+                    echo $sss['Name'];
+                }
+
                 ?>
             </td>     
                <td>

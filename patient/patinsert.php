@@ -15,12 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $Blood_Group = $_POST['Blood_Group'];
             $Email = $_POST['Email'];
             $Password = $_POST['Password'];
+            $filename = $_FILES['images']["name"];
+            $tempname = $_FILES['images']["tmp_name"];
+            $picsize = $_FILES['images']["size"];
+            $pictype = $_FILES['images']["type"];
+            move_uploaded_file($tempname,"images/".$filename);
            
          
     
     $link = new mysqli($servername, $username, $password, $dbname);
     
-    $sql = "INSERT INTO `patient`( `Name`, `Address`, `Ph_Num`, `Age`, `CIt_Id`, `Blood Group`, `Password`, `Email`) VALUES ('$NAME','$Address','$Ph_Num','$Age',$city,'$Blood_Group','$Email','$Password')";
+    $sql = "INSERT INTO `patient`( `Name`, `Address`, `Ph_Num`, `Age`, `CIt_Id`, `Blood Group`, `Password`, `Email`,images) VALUES ('$NAME','$Address','$Ph_Num','$Age',$city,'$Blood_Group','$Email','$Password','$filename')";
+    
      $result = mysqli_query($link, $sql);
             
      echo "<script >
@@ -36,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="container">
     
-    <form action="patinsert.php" method="post">
+    <form action="patinsert.php" method="post" enctype="multipart/form-data">
         <div class="mb-3">
 
             <label for="NAME" class="form-label">NAME</label>
@@ -67,7 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" class="form-control"  aria-describedby="emailHelp" name="Blood_Group"> 
             <label for="NAME" class="form-label">Email</label>
             <input type="text" name="Email" class="form-control"  aria-describedby="emailHelp" name="Blood_Group"> <label for="NAME" class="form-label">Password</label>
-            <input type="text" name="Password" class="form-control"  aria-describedby="emailHelp" name="Blood_Group"> 
+            <input type="text" name="Password" class="form-control"  aria-describedby="emailHelp" name="Blood_Group"> <label for="NAME" class="form-label">images</label>
+            <input type="file" name="images" class="form-control"  aria-describedby="emailHelp" name="images"> 
             <br>
             <button type="submit" name="save" class="btn btn-primary">Submit</button>
         </div>
@@ -88,6 +95,7 @@ $num = mysqli_num_rows($result);?>
 
             <th >#</th>
             <th >Name</th>
+            <th >Images</th>
             <th >Address</th>
             <th >Number</th>
             <th >Age</th>
@@ -111,6 +119,10 @@ $num = mysqli_num_rows($result);?>
             </th>
             <td>
                 <?php echo $res['Name'];?>
+            </td>
+            <td>
+                    <img height="30px" width="30px" src="images/<?php echo $res['images'];?>" alt="<?php echo $res['images'];?>">
+                
             </td>
               <td>
                 <?php echo $res['Address'];?>

@@ -12,7 +12,7 @@ include "../headers.php";
 
             $link = new mysqli($servername, $username, $password, $dbname);
 
-   $sql= "INSERT INTO `feedback`(`Massage`,`Pat_ID`) VALUES ('$Message','3')";
+  $sql= "INSERT INTO `feedback`(`Massage`,`Pat_ID`) VALUES ('$Message','8')";
 
    $result = mysqli_query($link, $sql);
    echo "<script >

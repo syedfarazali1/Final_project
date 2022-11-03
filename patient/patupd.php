@@ -8,8 +8,8 @@ include "../headers.php";
 
 
         <?php
-include "../connection.php";
-$link = new mysqli($servername, $username, $password, $dbname);
+            include "../connection.php";
+        $link = new mysqli($servername, $username, $password, $dbname);
         $ID = $_GET['ID'];       
         $sql = "select * from patient where `ID` = $ID";
         $run =  mysqli_query($link,$sql);  
@@ -26,15 +26,15 @@ $link = new mysqli($servername, $username, $password, $dbname);
         $city = $_POST['city'];
         $Blood_Group = $_POST['Blood_Group'];
         $Email = $_POST['Email'];
-        $Password = $_POST['Password'];
-           
-           
-         
-    
-        $link = new mysqli($servername, $username, $password, $dbname);
-    
-         $sql = "UPDATE `patient` SET `Name`='$NAME',`Address`='$Address',`Ph_Num`='$Ph_Num',`Age`='$Age',`CIt_Id`='$city',`Blood Group`='$Blood_Group',`Password`='$Password',`Email`='$Email' WHERE id= $ID";
-         $result = mysqli_query($link, $sql);
+        $Passwords = $_POST['Password'];
+        $filename = $_FILES['images']["name"];
+        $tempname = $_FILES['images']["tmp_name"];
+        $picsize = $_FILES['images']["size"];
+        $pictype = $_FILES['images']["type"];
+        move_uploaded_file($tempname,"images/".$filename);
+    $sqls = "UPDATE `patient` SET `Name`='$NAME',`images`='$filename',`Address`='$Address',`Ph_Num`='$Ph_Num',`Age`='$Age',`CIt_Id`='$city',`Blood Group`='$Blood_Group',`Password`='$Passwords',`Email`='$Email' WHERE `ID` = '$ID'";
+
+      $run =  mysqli_query($link,$sqls);  
             
          echo "<script >
          window.location = 'patselect.php';
@@ -45,20 +45,24 @@ $link = new mysqli($servername, $username, $password, $dbname);
      }
 
         ?>
- <form action="" method="post">
+ <form action="" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <input type="hidden" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[0]?>" name="ID">
             <label for="NAME" class="form-label">NAME</label>
             <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[1]?>" name="NAME">
+            <label for="NAME" class="form-label">Image</label> <br>
+            <img height="30px" width="30px" src="images/<?php echo $data[2]?>" alt="<?php echo $data['images'];?>">
+            <input type="file" class="form-control"   name="images">
+            
             <label for="NAME" class="form-label">Address</label>
-            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[2]?>" name="Address">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[3]?>" name="Address">
             <label for="NAME" class="form-label">Phone</label>
-            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[3]?>" name="Ph_Num"> <label
+            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[4]?>" name="Ph_Num"> <label
                 for="NAME" class="form-label">Age</label>
-            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[4]?>" name="Age">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" value="<?php echo $data[5]?>" name="Age">
             <label for="NAME" class="form-label">city</label>
             <select class="form-select" name="city" >
-                <!-- <option selected disable value="<?php echo $data[5]?> "><?php echo $data[5]?></option> -->
+                <!-- <option selected disable value="<?php echo $data[6]?> "><?php echo $data[5]?></option> -->
                   <?php
                 $sql = "select * from `cities`";
                 $result = mysqli_query($link, $sql);
@@ -74,10 +78,11 @@ $link = new mysqli($servername, $username, $password, $dbname);
 
             </select>
             <label for="NAME" class="form-label">Blood Gorup</label>
-            <input type="text" class="form-control" value="<?php echo $data[6]?>"  aria-describedby="emailHelp" name="Blood_Group"> 
-            <label for="NAME" class="form-label">Email</label>
-            <input type="text" name="Email" value="<?php echo $data[7]?>" class="form-control"  aria-describedby="emailHelp" name="Blood_Group"> <label for="NAME" class="form-label">Password</label>
-            <input type="text" name="Password" class="form-control" value="<?php echo $data[8]?>" aria-describedby="emailHelp" name="Blood_Group"> 
+            <input type="text" class="form-control" value="<?php echo $data[7]?>"  aria-describedby="emailHelp" name="Blood_Group"> 
+            <label for="NAME" class="form-label">Password</label>
+            <input type="text" name="Password" value="<?php echo $data[8]?>" class="form-control"  aria-describedby="emailHelp" >
+             <label for="NAME" class="form-label">Email</label>
+            <input type="text" name="Email" class="form-control" value="<?php echo $data[9]?>" aria-describedby="emailHelp" > 
             <br>
             <button type="submit" name="update" class="btn btn-primary">Submit</button>
         </div>
@@ -112,53 +117,57 @@ $num = mysqli_num_rows($result);?>
     </thead>
     <tbody>
 
-        <?php
-    while ($res = mysqli_fetch_array($result)) {
-    ?>
-        <tr>
-            <th >
-                <?php echo $res['ID'];?>
-            </th>
-            <td>
-                <?php echo $res['Name'];?>
-            </td>
-              <td>
-                <?php echo $res['Address'];?>
-            </td>         <td>
-                <?php echo $res['Ph_Num'];?>
-            </td>         <td>
-                <?php echo $res['Age'];?>
-            </td>         <td>
-                <?php 
-              echo $res['CIt_Id'];
-                ?>
-            </td>     
-               <td>
-                <?php echo $res['Blood Group'];?>
-            </td>   
-                 <td>
-                <?php echo $res['Password'];?>
-            </td>
-            <td>
-                <?php echo $res['Email'];?>
-            </td>
-            <td>
-                <button class="btn-primary btn-sm" name= "delete"> <a class="text-white" href="patdele.php?ID=<?php
-            echo $res['ID'];?>"> Delete</a> </button>
-           </td>
-            <td>
-                <button class="btn-primary btn-sm"> <a class="text-white" href="patupd.php?ID=<?php
-            echo $res['ID'];?>"> Update</a> </button>
-            </td>
-        </tr>
+<?php
+while ($res = mysqli_fetch_array($result)) {
+?>
+<tr>
+    <th >
+        <?php echo $res['ID'];?>
+    </th>
+    <td>
+        <?php echo $res['Name'];?>
+    </td>
+    <td>
+            <img height="30px" width="30px" src="images/<?php echo $res['images'];?>" alt="<?php echo $res['images'];?>">
+        
+    </td>
+      <td>
+        <?php echo $res['Address'];?>
+    </td>         <td>
+        <?php echo $res['Ph_Num'];?>
+    </td>         <td>
+        <?php echo $res['Age'];?>
+    </td>         <td>
+        <?php 
+      echo $res['CIt_Id'];
+        ?>
+    </td>     
+       <td>
+        <?php echo $res['Blood Group'];?>
+    </td>   
+         <td>
+        <?php echo $res['Password'];?>
+    </td>
+    <td>
+        <?php echo $res['Email'];?>
+    </td>
+    <td>
+    <a class="text-white" href="patdele.php?ID=<?php
+    echo $res['ID'];?>">   <button class="btn-primary btn-sm" name= "delete">  Delete </button></a>
+   </td>
+    <td>
+    <a class="text-white" href="patupd.php?ID=<?php
+    echo $res['ID'];?>"> <button class="btn-primary btn-sm">  Update </button></a>
+    </td>
+</tr>
 
-        <?php
-    }
+<?php
+}
 
 
 ?>
 
-    </tbody>
+</tbody>
 </table>
 
 </div>

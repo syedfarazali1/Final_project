@@ -30,10 +30,21 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 <?php echo $res['ID'];?>
             </th>
             <td>
+                <div class="content">
                 <?php echo $res['MASSAGE'];?>
+                </div>
             </td> 
              <td>
-                <?php echo $res['Pat_ID'];?>
+
+                <?php 
+              $IDS = $res['Pat_ID'];
+              $sqls = "SELECT * FROM `patient` WHERE ID = $IDS";
+              $results = mysqli_query($link, $sqls);
+              $nums = mysqli_num_rows($results);
+                  while ($ss = mysqli_fetch_array($results)) {
+                  echo $ss['Name'];
+              }
+            ?>
             </td>
              <td>
  

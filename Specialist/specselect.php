@@ -31,13 +31,13 @@ $num = mysqli_num_rows($result);?>
                 <?php echo $res['Name'];?>
             </td>
             <td>
-<button class="btn-primary btn-sm" name= "delete"> <a class="text-white" href="spedelete.php?ID=<?php
-            echo $res['ID'];?>"> Delete</a> </button>
-           </td>
-            <td>
-                <button class="btn-primary  btn-sm"> <a class="text-white" href="specupd.php?ID=<?php
-            echo $res['ID'];?>"> Update</a> </button>
-            </td>
+    <a class="text-white" href="patdele.php?ID=<?php
+    echo $res['ID'];?>">   <button class="btn-primary btn-sm" name= "delete">  Delete </button></a>
+   </td>
+    <td>
+    <a class="text-white" href="patupd.php?ID=<?php
+    echo $res['ID'];?>"> <button class="btn-primary btn-sm">  Update </button></a>
+    </td>
         </tr>
 
         <?php

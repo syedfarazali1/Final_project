@@ -8,7 +8,35 @@ var element = document.getElementById("Contact");
 <?php
     include("userheader.php")
     ?>
+<?php
+include "../connection.php";
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['Submit'])) {
+
+
+        $Name = $_POST['Name'];
+        $Email = $_POST['Email'];
+        $Massage = $_POST['Massage'];
+        $Subject = $_POST['Subject'];
+       
+     
+
+$link = new mysqli($servername, $username, $password, $dbname);
+
+$sql = "INSERT INTO `contact_us`( `Name`, `Email`, `Massage`, `Subject`) VALUES ('$Name','$Email','$Massage','$Subject')";
+ $result = mysqli_query($link, $sql);
+        
+ echo "<script >
+         window.location = 'contact.php';
+         </script>";
+        }
+
+
+}
+
+
+?>  
  <div class="container-fluid pt-5">
         <div class="container">
             <div class="text-center mx-auto mb-5" style="max-width: 500px;">
@@ -54,22 +82,22 @@ var element = document.getElementById("Contact");
             <div class="row justify-content-center position-relative" style="margin-top: -200px; z-index: 1;">
                 <div class="col-lg-8">
                     <div class="bg-white rounded p-5 m-5 mb-0">
-                        <form>
+                    <form action="" method= "post">  
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Name" name="Name" style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" class="form-control bg-light border-0" placeholder="Your Email" name="Email" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" class="form-control bg-light border-0" placeholder="Subject" style="height: 55px;">
+                                    <input type="text" class="form-control bg-light border-0" placeholder="Subject" name="Subject"  style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control bg-light border-0" rows="5" placeholder="Message"></textarea>
+                                    <textarea name="Massage" class="form-control bg-light border-0" rows="5" placeholder="Message"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                    <button class="btn btn-primary w-100 py-3" name="Submit" type="submit">Send Message</button>
                                 </div>
                             </div>
                         </form>

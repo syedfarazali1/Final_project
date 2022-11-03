@@ -12,12 +12,13 @@ $num = mysqli_num_rows($result);?>
     <div class="container">
     <a class="btn-primary btn-sm text-bold fs-4" href="patinsert.php">Add Patient</a> <br><br>
 
-<table class="table table-dark table-striped">
+    <table class="table table-dark table-striped">
     <thead>
         <tr>
 
             <th >#</th>
             <th >Name</th>
+            <th >Images</th>
             <th >Address</th>
             <th >Number</th>
             <th >Age</th>
@@ -41,6 +42,10 @@ $num = mysqli_num_rows($result);?>
             </th>
             <td>
                 <?php echo $res['Name'];?>
+            </td>
+            <td>
+                    <img height="30px" width="30px" src="images/<?php echo $res['images'];?>" alt="<?php echo $res['images'];?>">
+                
             </td>
               <td>
                 <?php echo $res['Address'];?>
