@@ -1,3 +1,7 @@
+<?php
+    session_start(); 
+
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,23 +88,23 @@
                         <a href="about.php" class="nav-item nav-link" id= "About">About</a>
                         <a href="service.php" class="nav-item nav-link" id= "Service">Service</a>
                         <a href="price.php" class="nav-item nav-link" id = "Pricing">Pricing</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="blog.php" class="dropdown-item"id = "Grid">Blog Grid</a>
-                                <a href="detail.php" class="dropdown-item" id = "Detail">Blog Detail</a>
-                                <a href="team.php" class="dropdown-item" id = "Team">The Team</a>
-                                <a href="testimonial.php" class="dropdown-item" id = "Testimonial">Testimonial</a>
-                                <a href="appointment.php" class="dropdown-item" id = "Appointment">Appointment</a>
-                                <a href="search.php" class="dropdown-item" id = "Search">Search</a>
-                            </div>
-                        </div>
+                       
                         <a href="contact.php" class="nav-item nav-link" id = "Contact">Contact</a>
+                        <?php
+                        if (empty($_SESSION['user']) & empty($_SESSION['admin']) )  {
+                 echo "   <a href='login.php' class='nav-item nav-link' id = 'Contact'>Login</a>";
+               
+                        }
+                        else {
+                            echo "   <a href='logout.php' class='nav-item nav-link'>Logout</a>";
+               
+                        }
+                        
+                        ?>
+
                     </div>
                 </div>  
             </nav>
         </div>
     </div>
     <!-- Navbar End -->
-
-   

@@ -8,6 +8,7 @@ var element = document.getElementById("Contact");
 <?php
     include("userheader.php")
     ?>
+
 <?php
 include "../connection.php";
 
@@ -79,6 +80,11 @@ $sql = "INSERT INTO `contact_us`( `Name`, `Email`, `Massage`, `Subject`) VALUES 
                     </div>
                 </div>
             </div>
+            <?php
+     if (isset($_SESSION["user"]) || isset($_SESSION["admin"] ) )  {
+        ?>             
+              
+     
             <div class="row justify-content-center position-relative" style="margin-top: -200px; z-index: 1;">
                 <div class="col-lg-8">
                     <div class="bg-white rounded p-5 m-5 mb-0">
@@ -104,6 +110,9 @@ $sql = "INSERT INTO `contact_us`( `Name`, `Email`, `Massage`, `Subject`) VALUES 
                     </div>
                 </div>
             </div>
+            <?php   }
+
+?>
         </div>
     </div>
 

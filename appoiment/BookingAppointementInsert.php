@@ -19,9 +19,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
           $Address=$_POST["Address"];
           $Consultancy_Fees =$_POST["Consultancy_Fees"];
                      //SQL QUERY TO BE EXECUTED
-     $sql="INSERT INTO `appointments`(`Date_Time`, `Pat_ID`, `Doctor_ID`, `Ph_Num`, `Address`, `Consultancy_Fees`) 
+  echo   $sql="INSERT INTO `appointments`(`Date_Time`, `Pat_ID`, `Doctor_ID`, `Ph_Num`, `Address`, `Consultancy_Fees`) 
         VALUES ('$Date_Time','$Pat_ID','$Doctor_ID',' $Ph_Num','$Address','$Consultancy_Fees')";
-     
+     die;
          $result = mysqli_query($conn , $sql);  
        
          echo "<script >
